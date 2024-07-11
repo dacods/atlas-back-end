@@ -12,13 +12,11 @@ def todo_list_api(employee_id):
     todo_url = "https://jsonplaceholder.typicode.com/todos"
 
     employee_name_r = requests.get(user_url)
-    employee_data = employee_name_r.json()
-    employee_name = employee_data.get('name')
+    employee_name = employee_name_r.json().get('username')
 
     params = {'userId': employee_id}
     todos_total_r = requests.get(todo_url, params=params)
     todos_total = todos_total_r.json()
-
     finished_task = [todo for todo in todos_total if todo['completed']]
 
     print(
@@ -28,16 +26,13 @@ def todo_list_api(employee_id):
     for task in finished_task:
         print(f"\t {task['title']}")
 
-    task_data = [
-        [employee_id, employee_name, todo['completed'], todo['title']]
-        for todo in todos_total
-    ]
-
-    filename = f"{employee_id}.csv"
-    with open(filename, mode='w', newline='') as file:
+    with open(f"{employee_id}.csv", mode='w', newline='') as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
-        writer.writerows(task_data)
-
+        for task in todos_total:
+            writer.writerow([
+                employee_id, employee_name,
+                task.get('completed'), task.get('title')
+            ])
 
 if __name__ == "__main__":
     todo_list_api(int(sys.argv[1]))
