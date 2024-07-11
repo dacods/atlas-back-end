@@ -4,6 +4,7 @@ about his/her TODO list progress"""
 import requests
 import sys
 
+
 def todo_list_api(employee_id):
     url = "https://jsonplaceholder.typicode.com/"
     user_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
@@ -27,4 +28,3 @@ def todo_list_api(employee_id):
 
 if __name__ == "__main__":
     todo_list_api(int(sys.argv[1]))
-
