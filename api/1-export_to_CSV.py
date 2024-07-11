@@ -12,7 +12,8 @@ def todo_list_api(employee_id):
     todo_url = "https://jsonplaceholder.typicode.com/todos"
 
     employee_name_r = requests.get(user_url)
-    employee_name = employee_name_r.json().get('username')
+    employee_data = employee_name_r.json()
+    employee_name = employee_data.get('name')
 
     params = {'userId': employee_id}
     todos_total_r = requests.get(todo_url, params=params)
@@ -35,8 +36,6 @@ def todo_list_api(employee_id):
     filename = f"{employee_id}.csv"
     with open(filename, mode='w', newline='') as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
-        writer.writerow(["USER_ID", "USERNAME",
-                         "TASK_COMPLETED_STATUS", "TASK_TITLE"])
         writer.writerows(task_data)
 
 
