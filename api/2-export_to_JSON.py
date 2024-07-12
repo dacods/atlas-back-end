@@ -36,8 +36,8 @@ def todo_list_api(employee_id):
             ])
 
     task = [{"task": task["title"], "completed":
-             task["completed"], "username": employee_name}
-             for task in todos_total]
+            task["completed"], "username": employee_name}
+            for task in todos_total]
     data = {str(employee_id): task}
 
     with open(f"{employee_id}.json", 'w') as json_file:
