@@ -32,5 +32,6 @@ def todo_list_api():
     with open("todo_all_employees.json", 'w') as json_file:
         json.dump(all_data, json_file)
 
+
 if __name__ == "__main__":
     todo_list_api()
