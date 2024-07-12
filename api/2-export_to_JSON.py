@@ -8,13 +8,16 @@ import sys
 
 
 def todo_list_api(employee_id):
+    """ Gather data from an API"""
     url = "https://jsonplaceholder.typicode.com/"
     user_url = f"https://jsonplaceholder.typicode.com/users/{employee_id}"
     todo_url = "https://jsonplaceholder.typicode.com/todos"
 
+    """Get all users"""
     employee_name_r = requests.get(user_url)
     employee_name = employee_name_r.json().get('username')
 
+    """Get all task"""
     params = {'userId': employee_id}
     todos_total_r = requests.get(todo_url, params=params)
     todos_total = todos_total_r.json()
@@ -27,6 +30,10 @@ def todo_list_api(employee_id):
     for task in finished_task:
         print(f"\t {task['title']}")
 
+    """
+    Export to CSV
+    ???
+    """
     with open(f"{employee_id}.csv", mode='w', newline='') as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         for task in todos_total:
